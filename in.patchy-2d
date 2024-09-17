@@ -1,0 +1,48 @@
+dimension 2
+units lj
+atom_style hybrid molecular sphere 
+region simbox block -30 30 -30 30 -0.5 0.5 
+create_box 3 simbox
+
+molecule patchy patchy_start.txt
+create_atoms 0 random 200 ${seed} simbox mol patchy 1929 overlap 1.0
+
+neighbor 1.0 bin
+neigh_modify check yes delay 0 every 1 
+neigh_modify exclude molecule/intra all
+
+mass 1 1.0
+mass 2 0.1 
+mass 3 0.1 
+
+set type 1 mass 1 
+set type 2 mass 0.05
+set type 3 mass 0.05
+
+pair_style lj/cut 2.5 
+pair_coeff 1 1  1 1  1.122462048309373 
+pair_coeff 1 2  1 0.05 0.056123102415468654
+pair_coeff 1 3  1 0.05 0.056123102415468654
+pair_coeff 2 3  1 0.05 0.056123102415468654
+# Attractive patches 
+pair_coeff 2 2  1 0.05 2.5
+pair_coeff 3 3  1 0.05 2.5 
+
+pair_modify shift yes
+
+#  normal time step run 
+restart 10000000 patchy.restart
+velocity       all create 1.0 893 dist gaussian rot yes
+#thermo_modify lost warn flush yes 
+
+fix 1 all rigid/nve molecule langevin 0.01 0.01  0.3 1010103
+fix 2 all enforce2d 
+
+timestep 0.001
+compute T2 all temp/sphere
+thermo_modify temp T2
+thermo 50000
+dump           trajdump   all atom 100000 trajectory.lammpstrj
+dump_modify    trajdump   sort id    pbc yes
+
+run 1000000000
