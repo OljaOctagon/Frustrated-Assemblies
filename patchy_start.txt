@@ -1,0 +1,21 @@
+# starting configuration template for LAMMPS available at
+# https://github.com/OljaOctagon/Introduction-to-Computational-Physics
+# File format according to https://docs.lammps.org/2001/data_format.html
+
+Title 
+5 atoms
+
+Coords 
+1 0.0 0.0 0.0
+2 -0.24373868681029495 1.9318516525781366 0.0
+3 0.24373868681029495 1.985092303282644 0.0
+4 0.5176380902050415 1.9318516525781366 0.0
+5 -0.5176380902050415 1.9318516525781366 0.0
+
+
+Types   
+1   1
+2   2
+3   2
+4   3
+5   3
