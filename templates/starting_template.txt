@@ -1,16 +1,14 @@
-# starting configuration template for LAMMPS available at
-# https://github.com/OljaOctagon/Frustrated-Assemblies
-# File format according to https://docs.lammps.org/2001/data_format.html
-
 Title 
 {{number_of_atoms}} atoms
 
 Coords 
+
 {% for atom in atoms -%}
 {{atom.id}} {{atom.x}} {{atom.y}} {{atom.z}}
 {% endfor %}
 
-Types   
+Types  
+
 {% for type in types -%}   
 {{type.id}}   {{type.type}}
 {% endfor %}
