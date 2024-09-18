@@ -25,7 +25,7 @@ y2 = np.sin(alpha2)*r
 
 npart=5
 pos = np.zeros((npart,3))
-pos[1,:] = np.array([-x1,y2,0])
+pos[1,:] = np.array([-x1,y1,0])
 pos[2,:] = np.array([x1,y1,0])
 pos[3,:] = np.array([x2,-y2,0])
 pos[4,:] = np.array([-x2,-y2,0])
@@ -36,8 +36,7 @@ ptype = np.array([1,2,3,3,2])
 atoms=[]
 types=[]
 for pid in range (1,npart+1):
-    print(pid)
-    print(pos[pid-1])
+   
     atom_pos = {
         "id": pid,
         "x": pos[pid-1,0],
